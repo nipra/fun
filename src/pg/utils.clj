@@ -64,3 +64,16 @@
     (sort (map :table_name res))))
 
 ;;;
+(defn get-biggest-tables
+  [db]
+  (sql/with-connection db
+    (sql/with-query-results res
+      ["SELECT table_name, pg_relation_size(table_name) as size
+        FROM information_schema.tables
+        WHERE table_schema NOT IN ('information_schema', 'pg_catalog')
+        ORDER BY size DESC
+        LIMIT 10;"]
+      (map (fn [x]
+             (update-in x [:size] (fn [y]
+                                    (float (/ y 1024 1024)))))
+           (vec res)))))
