@@ -1,0 +1,28 @@
+(ns joy.chapter3
+  (:require [clojure.contrib [repl-utils :as repl]]))
+
+(defn xors
+  [max-x max-y]
+  (for [x (range max-x)
+        y (range max-y)]
+    [x y (bit-xor x y)]))
+
+(defn find-methods
+  [class & [pattern]]
+  (for [method (seq (.getMethods class))
+        :let [method-name (.getName method)]
+        :when (if pattern (re-find pattern method-name) true)]
+    method-name))
+
+(comment
+  (do
+    (def frame (java.awt.Frame.))
+    (.setVisible frame true)
+    (.setSize frame (java.awt.Dimension. 200 200))
+    (def gfx (.getGraphics frame))
+    (.fillRect gfx 100 100 50 75)
+    (.setColor gfx (java.awt.Color. 255 128 0))
+    (.fillRect gfx 100 50 75 50)
+    (doseq [[x y xor] (xors 200 200)]
+      (.setColor gfx (java.awt.Color. xor xor xor))
+      (.fillRect gfx x y 1 1))))
