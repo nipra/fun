@@ -13,7 +13,8 @@
                  [postgresql/postgresql "9.0-801.jdbc4"]
                  [org.apache.lucene/lucene-core "3.0.3"]
                  [org.apache.lucene/lucene-highlighter "3.0.3"]
-                 [clj-http "0.1.3"]]
+                 [clj-http "0.1.3"]
+                 [javax.mail/mail "1.4.1"]]
   :dev-dependencies [[swank-clojure "1.2.1"]
                      [lein-clojars "0.6.0"]
                      [lein-run "1.0.0"]]
@@ -22,3 +23,4 @@
   :multi-deps {"lucene2" [[org.clojure/clojure "1.2.1"]
                           [org.apache.lucene/lucene-core "2.9.2"]
                           [org.apache.lucene/lucene-highlighter "2.9.2"]]})
+
